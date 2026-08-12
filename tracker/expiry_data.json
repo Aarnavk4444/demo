@@ -1,0 +1,17 @@
+[
+    {
+        "name": "milk",
+        "category": "dairy",
+        "expiry_date": "2026-08-12"
+    },
+    {
+        "name": "fruit",
+        "category": "asj",
+        "expiry_date": "2026-08-29"
+    },
+    {
+        "name": "fd",
+        "category": "sd",
+        "expiry_date": "2026-08-11"
+    }
+]
