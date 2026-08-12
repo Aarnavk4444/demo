@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.dashboard, name='home'),
     path('add/', views.add_item, name='add_item'),
     path('delete/<int:item_id>/', views.delete_item, name='delete_item'),
+    path('financials/', views.financial_metrics_view, name='financial_metrics'),
 ]

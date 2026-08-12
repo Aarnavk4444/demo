@@ -1,0 +1,338 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitchenSync Pro | Advanced Financial Metrics & NPR Analytics Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --surface-glass: rgba(11, 19, 41, 0.82);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(99, 102, 241, 0.4);
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --accent-cyan: #06b6d4;
+            --danger: #f43f5e;
+            --warning: #fbbf24;
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+            --text-secondary: #94a3b8;
+            --radius-xl: 24px;
+            --radius-md: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 36px 24px;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: var(--surface-glass);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 22px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Financial Analytics Grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media(max-width: 1000px) {
+            .analytics-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface-glass);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--accent-color, var(--primary));
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Calculator Tool Section */
+        .calculator-section {
+            background: var(--surface-glass);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-bottom: 30px;
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .calc-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .calc-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media(max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(5, 8, 17, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .output-box {
+            background: rgba(5, 8, 17, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .output-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 14px;
+        }
+
+        .output-row:last-child {
+            border-bottom: none;
+        }
+
+        .output-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .output-val {
+            font-weight: 700;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <header class="page-header">
+            <div class="header-title">
+                <h1>Advanced NPR Financial Metrics Suite</h1>
+                <p>Real-time valuation analytics, depreciation forecasting, and leakage audit</p>
+            </div>
+            <a href="{% url 'home' %}" class="btn-back">← Return to Command Center</a>
+        </header>
+
+        <section class="analytics-grid">
+            <div class="card" style="--accent-color: var(--primary);">
+                <div class="card-title">Gross Portfolio Asset Value</div>
+                <div class="card-value">Rs. {{ total_inventory_value }}</div>
+                <div class="card-desc">Total nominal capital tied up across {{ total_items_count }} registered items.</div>
+            </div>
+
+            <div class="card" style="--accent-color: var(--danger);">
+                <div class="card-title">Realized Waste Leakage</div>
+                <div class="card-value">Rs. {{ potential_waste_loss }}</div>
+                <div class="card-desc">Capital wiped out by expired timeline violations ({{ waste_percentage }}% leakage rate).</div>
+            </div>
+
+            <div class="card" style="--accent-color: var(--success);">
+                <div class="card-title">Net Active Capital</div>
+                <div class="card-value">Rs. {{ net_active_capital }}</div>
+                <div class="card-desc">Healthy productive liquidity remaining in active inventory storage.</div>
+            </div>
+        </section>
+
+        <section class="calculator-section">
+            <div class="calc-header">
+                <h3>🧮 Dynamic Cost-Basis & Wastage Forecasting Simulator</h3>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="monthlySpend">Estimated Monthly Inventory Spend (NPR)</label>
+                        <input type="number" id="monthlySpend" class="input-field" value="25000" oninput="calculateForecast()">
+                    </div>
+                    <div class="input-group">
+                        <label for="wasteRatio">Projected Spoilage / Waste Rate (%)</label>
+                        <input type="number" id="wasteRatio" class="input-field" value="12" step="0.5" oninput="calculateForecast()">
+                    </div>
+                    <div class="input-group">
+                        <label for="targetSavings">Target Waste Reduction (%)</label>
+                        <input type="number" id="targetSavings" class="input-field" value="50" oninput="calculateForecast()">
+                    </div>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-row">
+                        <span class="output-label">Annual Spoilage Leakage:</span>
+                        <span class="output-val" id="annualWaste">Rs. 36,000.00</span>
+                    </div>
+                    <div class="output-row">
+                        <span class="output-label">Projected Capital Recovered:</span>
+                        <span class="output-val" id="recoveredCapital" style="color: var(--success);">Rs. 18,000.00</span>
+                    </div>
+                    <div class="output-row">
+                        <span class="output-label">Optimized Annual Return:</span>
+                        <span class="output-val" id="netReturn" style="color: #34d399;">Rs. 282,000.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function calculateForecast() {
+            const spend = parseFloat(document.getElementById('monthlySpend').value) || 0;
+            const wastePct = parseFloat(document.getElementById('wasteRatio').value) || 0;
+            const targetRed = parseFloat(document.getElementById('targetSavings').value) || 0;
+
+            const annualSpend = spend * 12;
+            const annualWaste = annualSpend * (wastePct / 100);
+            const recovered = annualWaste * (targetRed / 100);
+            const netReturn = annualSpend - (annualWaste - recovered);
+
+            document.getElementById('annualWaste').innerText = "Rs. " + annualWaste.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('recoveredCapital').innerText = "Rs. " + recovered.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('netReturn').innerText = "Rs. " + netReturn.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        // Run on load
+        calculateForecast();
+    </script>
+</body>
+</html>
