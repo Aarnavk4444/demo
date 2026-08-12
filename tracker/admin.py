@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import GroceryItem
 
-# Register your models here.
+@admin.register(GroceryItem)
+class GroceryItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'expiry_date')
+    search_fields = ('name', 'category')
+    list_filter = ('category', 'expiry_date')
