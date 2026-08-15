@@ -1,39 +1,33 @@
-# ⚡ KitchenSync Pro | Enterprise Expiry Telemetry & NPR Financial Analytics Suite
+# DataBite ⚡
+> Live Expiry Telemetry & NPR Financial Analytics Suite
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Django-5.x-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django" />
-  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Currency-NPR%20(रु)-10B981?style=for-the-badge&logo=cashapp&logoColor=white" alt="NPR Valuation" />
-  <img src="https://img.shields.io/badge/Design-Glassmorphism-6366F1?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Glassmorphism UI" />
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License" />
-</p>
-
-KitchenSync Pro is a state-of-the-art, enterprise-grade inventory management and expiry telemetry system designed for precision kitchen assets and pantry command centers. Built with a futuristic **glassmorphic interface**, it integrates real-time shelf-life tracking, automated hazard alerts, and advanced **Nepalese Rupee (NPR)** financial modeling.
+DataBite is a specialized web application built with **Django** designed to help businesses and individuals manage inventory assets, track expiration timelines in real-time, audit financial leakage, and optimize capital allocation in Nepalese Rupees (NPR).
 
 ---
 
-## 🚀 Key Features & Architecture
+## 🌟 Key Features
 
-* **Glassmorphic Command Center (`dashboard.html`):** Fully responsive, high-density dashboard featuring real-time telemetry pulsing status and dynamic Chart.js graphing.
-* **NPR Financial Analytics Suite (`financial_metrics.html`):** Dedicated deep-dive financial page tracking gross portfolio asset valuation, realized waste leakage, active liquidity, and an interactive cost-basis/wastage forecasting simulator.
-* **Intelligent Expiry Telemetry:** Automatically calculates item viability (`Fresh`, `Expiring Soon`, `Expired`) based on remaining shelf-life days and generates stacked hazard alert banners.
-* **Standardized Pantry Classification:** Dropdown menu optimized for precise category management (*Dairy & Alternatives, Grains & Pulses, Produce, Proteins, Beverages, Pantry Staples*).
-* **High-Contrast Native Controls:** Custom WebKit styling ensuring browser datepicker calendar icons render in high-contrast pure white (`#ffffff`).
-* **Clickable Interactive Metrics:** Summary cards and hazard panels serve as direct operational shortcuts.
+* **Live Expiry Telemetry:** Real-time monitoring of item viability status (Safe, Expiring Soon, Expired) powered by dynamic health calculations.
+* **NPR Financial Suite:** Advanced analytics covering gross portfolio valuation, waste leakage auditing, and depreciation forecasting simulators.
+* **Interactive Dashboard:** Instant client-side search filtering, visual metrics, and interactive charts built with Chart.js.
+* **Hazard Alerts:** Automated alert stacks highlighting expired stock and offering quick-action asset removal.
+* **Asset Detail Insights:** Deep-dive pages for every registered inventory item.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Backend:** Python, Django Web Framework
-* **Frontend:** HTML5, Modern CSS3 (CSS Variables, Flexbox, CSS Grid, Backdrop Filters)
-* **Visuals & Charts:** Chart.js, Plus Jakarta Sans Typography Engine
+* **Backend:** Python, Django
+* **Frontend:** HTML5, CSS3 (Glassmorphism design system), JavaScript, Chart.js
+* **Database:** SQLite (Development) / Relational DB (Production ready)
 
 ---
 
-## ⚙️ Local Installation & Setup
+## 🚀 Getting Started Locally
 
-1. **Clone the Repository:**
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/kitchensync-pro.git](https://github.com/YOUR_USERNAME/kitchensync-pro.git)
-   cd kitchensync-pro
+Follow these steps to set up the project on your local machine:
+
+### 1. Clone the repository
+```bash
+git clone [https://github.com/your-username/databite.git](https://github.com/your-username/databite.git)
+cd databite
