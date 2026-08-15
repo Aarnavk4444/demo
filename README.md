@@ -41,6 +41,7 @@ Open your terminal (Command Prompt, PowerShell, or Terminal on macOS/Linux) and 
 Bash
 git clone [https://github.com/your-username/databite.git](https://github.com/your-username/databite.git)
 cd databite
+
 Step 2: Create a Virtual Environment
 It is best practice to run Python apps inside an isolated virtual environment:
 
@@ -52,24 +53,23 @@ On Windows (Command Prompt / PowerShell):
 
 Bash
 venv\Scripts\activate
-On macOS / Linux:
 
+On macOS / Linux:
 Bash
 source venv/bin/activate
+
 Step 3: Install Required Dependencies
 Install all required Python packages (such as Django, Gunicorn, etc.) listed in the requirements.txt file:
-
 Bash
 pip install -r requirements.txt
+
 Step 4: Run Database Migrations
 Set up the local SQLite database schema by running the migration commands:
-
 Bash
 python manage.py makemigrations
 python manage.py migrate
 Step 5: Start the Local Development Server
 Launch the local server using Django's built-in development command:
-
 Bash
 python manage.py runserver
 Step 6: Access the Local Website
