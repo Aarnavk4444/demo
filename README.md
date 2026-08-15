@@ -27,8 +27,7 @@ DataBite is a specialized web application built with **Django** designed to help
 
 Follow these steps to set up the project on your local machine:
 
-### 1. Clone the repository
-```bash
+1)Clone It
 git clone [https://github.com/your-username/databite.git](https://github.com/your-username/databite.git)
 cd databite
 
