@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KitchenSync Pro | Advanced Financial Metrics & NPR Analytics Suite</title>
+    <title>DataBite | Advanced Financial Metrics & NPR Analytics Suite</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'tracker/images/logo.jpg' %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -284,7 +285,7 @@
                 <div class="calc-inputs">
                     <div class="input-group">
                         <label for="monthlySpend">Estimated Monthly Inventory Spend (NPR)</label>
-                        <input type="number" id="monthlySpend" class="input-field" value="25000" oninput="calculateForecast()">
+                        <input type="number" id="monthlySpend" class="input-field" value="2500" oninput="calculateForecast()">
                     </div>
                     <div class="input-group">
                         <label for="wasteRatio">Projected Spoilage / Waste Rate (%)</label>
@@ -299,15 +300,15 @@
                 <div class="output-box">
                     <div class="output-row">
                         <span class="output-label">Annual Spoilage Leakage:</span>
-                        <span class="output-val" id="annualWaste">Rs. 36,000.00</span>
+                        <span class="output-val" id="annualWaste">Rs. 3,600.00</span>
                     </div>
                     <div class="output-row">
                         <span class="output-label">Projected Capital Recovered:</span>
-                        <span class="output-val" id="recoveredCapital" style="color: var(--success);">Rs. 18,000.00</span>
+                        <span class="output-val" id="recoveredCapital" style="color: var(--success);">Rs. 1,800.00</span>
                     </div>
                     <div class="output-row">
                         <span class="output-label">Optimized Annual Return:</span>
-                        <span class="output-val" id="netReturn" style="color: #34d399;">Rs. 282,000.00</span>
+                        <span class="output-val" id="netReturn" style="color: #34d399;">Rs. 28,200.00</span>
                     </div>
                 </div>
             </div>

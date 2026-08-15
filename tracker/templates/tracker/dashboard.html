@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KitchenSync Pro | Master Command Center & NPR Financial Telemetry Suite</title>
+    <title>DataBite — Live Expiry Telemetry</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'tracker/images/logo.jpg' %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg-deep: #030712;
-            --bg-surface: #0b1329;
             --surface-glass: rgba(11, 19, 41, 0.78);
             --border-glass: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(99, 102, 241, 0.4);
             --primary: #6366f1;
             --primary-hover: #4f46e5;
             --primary-glow: rgba(99, 102, 241, 0.35);
@@ -89,14 +88,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            overflow: hidden;
             box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(99, 102, 241, 0.6); }
         }
 
         .brand-title h1 {
             font-size: 24px;
             font-weight: 800;
-            letter-spacing: -0.02em;
             background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -163,7 +173,7 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
         }
 
-        /* Metrics Grid Layout (Clickable Interactive Cards) */
+        /* Metrics Grid Layout */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -223,7 +233,6 @@
             font-weight: 800;
             color: #fff;
             margin-top: 6px;
-            letter-spacing: -0.02em;
         }
 
         .metric-subtext {
@@ -249,7 +258,7 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* Interactive Clickable Hazard Alerts Stack */
+        /* Hazard Alerts Stack */
         .alerts-stack {
             display: flex;
             flex-direction: column;
@@ -270,15 +279,13 @@
             backdrop-filter: blur(15px);
             box-shadow: 0 15px 35px rgba(244, 63, 94, 0.12);
             text-decoration: none;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s ease;
         }
 
         .alert-banner:hover {
             transform: translateX(4px);
             background: rgba(244, 63, 94, 0.14);
             border-color: rgba(244, 63, 94, 0.6);
-            box-shadow: 0 20px 40px rgba(244, 63, 94, 0.25);
         }
 
         .alert-content h4 {
@@ -296,16 +303,15 @@
         .badge-hazard {
             background: var(--danger);
             color: white;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
         }
 
-        /* Workspace Grid Split Layout */
+        /* Workspace Grid */
         .workspace-grid {
             display: grid;
             grid-template-columns: 1.8fr 1.2fr;
@@ -343,7 +349,24 @@
             gap: 10px;
         }
 
-        /* Data Grid Table Styling */
+        /* Search Input Box */
+        .search-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease;
+            width: 220px;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        /* Table Styling */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -372,8 +395,12 @@
             vertical-align: middle;
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        tr {
+            transition: background 0.2s ease;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .item-name-cell {
@@ -406,7 +433,6 @@
         .btn-remove:hover {
             background: var(--danger);
             color: white;
-            border-color: var(--danger);
             box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
         }
 
@@ -417,7 +443,7 @@
             font-size: 14px;
         }
 
-        /* Live Statistical Charts Integration */
+        /* Charts */
         .charts-container {
             display: flex;
             flex-direction: column;
@@ -429,7 +455,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 20px;
-            position: relative;
         }
 
         .chart-title {
@@ -437,14 +462,13 @@
             font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             margin-bottom: 14px;
         }
 
         .canvas-wrapper {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 190px;
         }
     </style>
 </head>
@@ -453,9 +477,11 @@
         
         <header class="command-header">
             <div class="brand-cluster">
-                <div class="brand-icon">⚡</div>
+                <div class="brand-icon">
+                    <img src="{% static 'tracker/images/logo.jpg' %}" alt="DataBite Logo">
+                </div>
                 <div class="brand-title">
-                    <h1>KitchenSync Pro</h1>
+                    <h1>DataBite</h1>
                     <p>Live Expiry Telemetry & NPR Financial Analytics Suite</p>
                 </div>
             </div>
@@ -468,7 +494,7 @@
             </div>
         </header>
 
-       <section class="metrics-grid">
+        <section class="metrics-grid">
             <a href="{% url 'financial_metrics' %}" class="metric-card" style="--accent-color: var(--primary);">
                 <div class="metric-info">
                     <span>Portfolio Value (NPR)</span>
@@ -487,23 +513,23 @@
                 <div class="metric-icon-box">📉</div>
             </a>
 
-            <div class="metric-card" style="--accent-color: var(--warning);">
+            <a href="{% url 'health_report' %}" class="metric-card" style="--accent-color: var(--warning);">
                 <div class="metric-info">
                     <span>Storage Health Ratio</span>
                     <h3>{{ health_ratio }}%</h3>
-                    <div class="metric-subtext">Viable vs Total Assets</div>
+                    <div class="metric-subtext">Click for Health Audit & Insights</div>
                 </div>
                 <div class="metric-icon-box">🛡️</div>
-            </div>
+            </a>
 
-            <div class="metric-card" style="--accent-color: var(--success);">
+            <a href="{% url 'inventory_registry' %}" class="metric-card" style="--accent-color: var(--success);">
                 <div class="metric-info">
                     <span>Managed Assets</span>
                     <h3>{{ items|length }} Items</h3>
-                    <div class="metric-subtext">Synchronized in DB</div>
+                    <div class="metric-subtext">Click for Full Asset Registry</div>
                 </div>
                 <div class="metric-icon-box">📦</div>
-            </div>
+            </a>
         </section>
 
         {% if expired_items_list %}
@@ -512,7 +538,7 @@
             <a href="{% url 'delete_item' expired.id %}" class="alert-banner">
                 <div class="alert-content">
                     <h4>⚠️ Hazard Identified: "{{ expired.name }}" ({{ expired.category }}) has expired!</h4>
-                    <p>Expiration date: {{ expired.expiry_date }} | Valuation loss: Rs. {{ expired.price }}. Click to remove asset immediately.</p>
+                    <p>Expiration date: {{ expired.expiry_date }} | Valuation loss: Rs. {{ expired.price }}. Click to remove asset.</p>
                 </div>
                 <span class="badge-hazard">Remove Now</span>
             </a>
@@ -522,15 +548,15 @@
 
         <div class="workspace-grid">
             
-            <div class="panel-card" id="inventoryTable">
+            <div class="panel-card">
                 <div class="panel-header">
                     <h3>📊 Active Inventory Registry</h3>
-                    <span style="font-size: 12px; color: var(--text-secondary); background: rgba(255,255,255,0.04); padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">Real-Time Sync</span>
+                    <input type="text" id="tableSearch" class="search-box" placeholder="Filter items..." onkeyup="filterTable()">
                 </div>
                 
                 {% if items %}
                 <div class="table-responsive">
-                    <table>
+                    <table id="inventoryTable">
                         <thead>
                             <tr>
                                 <th>Item Designation</th>
@@ -544,15 +570,13 @@
                         <tbody>
                             {% for item in items %}
                             <tr>
-                                <td>
-                                    <div class="item-name-cell">
-                                        {{ item.name }}
-                                    </div>
+                                <td onclick="window.location.href='{% url 'item_detail' item.id %}'" style="cursor: pointer;">
+                                    <div class="item-name-cell">{{ item.name }}</div>
                                 </td>
-                                <td style="color: var(--text-secondary); font-weight: 500;">{{ item.category }}</td>
-                                <td style="color: #38bdf8; font-weight: 700;">Rs. {{ item.price }}</td>
-                                <td style="color: #cbd5e1; font-weight: 500;">{{ item.expiry_date }}</td>
-                                <td>
+                                <td onclick="window.location.href='{% url 'item_detail' item.id %}'" style="color: var(--text-secondary); font-weight: 500; cursor: pointer;">{{ item.category }}</td>
+                                <td onclick="window.location.href='{% url 'item_detail' item.id %}'" style="color: #38bdf8; font-weight: 700; cursor: pointer;">Rs. {{ item.price }}</td>
+                                <td onclick="window.location.href='{% url 'item_detail' item.id %}'" style="color: #cbd5e1; font-weight: 500; cursor: pointer;">{{ item.expiry_date }}</td>
+                                <td onclick="window.location.href='{% url 'item_detail' item.id %}'" style="cursor: pointer;">
                                     <span class="status-pill" style="background-color: {{ item.color }}18; color: {{ item.color }}; border: 1px solid {{ item.color }}40;">
                                         <span style="width: 6px; height: 6px; border-radius: 50%; background-color: {{ item.color }};"></span>
                                         {{ item.status }}
@@ -599,6 +623,29 @@
     </div>
 
     <script>
+        // Instant Live Client-Side Search / Filtering
+        function filterTable() {
+            const input = document.getElementById('tableSearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('inventoryTable');
+            const tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdName = tr[i].getElementsByTagName('td')[0];
+                let tdCat = tr[i].getElementsByTagName('td')[1];
+                if (tdName || tdCat) {
+                    let nameValue = tdName.textContent || tdName.innerText;
+                    let catValue = tdCat.textContent || tdCat.innerText;
+                    if (nameValue.toLowerCase().indexOf(filter) > -1 || catValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // Charts configuration
         const statusLabels = {{ status_labels|safe }};
         const statusData = {{ status_data|safe }};
         
@@ -611,7 +658,6 @@
             data: {
                 labels: statusLabels,
                 datasets: [{
-                    label: 'Assets',
                     data: statusData,
                     backgroundColor: ['#10b981', '#fbbf24', '#f43f5e'],
                     borderRadius: 8,

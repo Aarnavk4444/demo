@@ -138,3 +138,39 @@ def delete_item(request, item_id):
     item = get_object_or_404(GroceryItem, id=item_id)
     item.delete()
     return redirect('home')
+def health_report_view(request):
+    """Audits overall inventory viability and safety percentages."""
+    today = datetime.now().date()
+    items = GroceryItem.objects.all()
+    
+    total = items.count()
+    fresh_items = [i for i in items if (i.expiry_date - today).days > 3]
+    warning_items = [i for i in items if 0 <= (i.expiry_date - today).days <= 3]
+    expired_items = [i for i in items if (i.expiry_date - today).days < 0]
+    
+    context = {
+        'total': total,
+        'fresh_count': len(fresh_items),
+        'warning_count': len(warning_items),
+        'expired_count': len(expired_items),
+    }
+    return render(request, 'tracker/health_report.html', context)
+
+def inventory_registry_view(request):
+    """Renders a comprehensive, expanded view of all database entries."""
+    items = GroceryItem.objects.all().order_by('-expiry_date')
+    context = {'items': items}
+    return render(request, 'tracker/registry.html', context)
+def item_detail_view(request, item_id):
+    """Renders an advanced telemetry detail page for a single inventory item."""
+    item = get_object_or_404(GroceryItem, id=item_id)
+    
+    # Calculate days remaining until expiry
+    today = datetime.now().date()
+    days_left = (item.expiry_date - today).days
+    
+    context = {
+        'item': item,
+        'days_left': days_left,
+    }
+    return render(request, 'tracker/item_detail.html', context)

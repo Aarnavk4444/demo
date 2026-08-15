@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KitchenSync Pro | Ingest New Inventory Asset (NPR)</title>
+    <title>DataBite| Ingest New Inventory Asset (NPR)</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'tracker/images/logo.jpg' %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -212,7 +213,7 @@
                 {% csrf_token %}
                 
                 <div class="input-group">
-                    <label for="name">Asset Designation (Name)</label>
+                    <label for="name"> Name</label>
                     <input type="text" id="name" name="name" class="input-field" placeholder="e.g. Organic Basmati Rice" required>
                 </div>
 

@@ -1,0 +1,326 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataBite — Storage Health & Compliance Audit</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'tracker/images/logo.jpg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --surface-glass: rgba(11, 19, 41, 0.78);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent-cyan: #06b6d4;
+            --danger: #f43f5e;
+            --warning: #fbbf24;
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+            --text-secondary: #94a3b8;
+            --radius-xl: 24px;
+            --radius-md: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 36px 24px;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(251, 191, 36, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Header Card */
+        .header-card {
+            background: var(--surface-glass);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--warning), transparent);
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--warning);
+            transform: translateY(-2px);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media(max-width: 900px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+
+        .metric-card {
+            background: var(--surface-glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 3px;
+            background: var(--card-accent);
+        }
+
+        .metric-card span {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+        }
+
+        .metric-card h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 8px;
+        }
+
+        .metric-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Detailed Compliance Panel */
+        .audit-panel {
+            background: var(--surface-glass);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 35px;
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.65);
+            margin-bottom: 30px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Recommendations Section */
+        .recs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media(max-width: 768px) {
+            .recs-grid { grid-template-columns: 1fr; }
+        }
+
+        .rec-box {
+            background: rgba(5, 8, 17, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 22px;
+        }
+
+        .rec-box h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-box p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <header class="header-card">
+            <div class="header-title">
+                <h1>🛡️ Storage Health & Compliance Audit</h1>
+                <p>Advanced diagnostic telemetry assessing asset viability and expiration risk profiles.</p>
+            </div>
+            <a href="{% url 'home' %}" class="btn-back">← Back to Command Center</a>
+        </header>
+
+        <section class="metrics-grid">
+            <div class="metric-card" style="--card-accent: var(--success);">
+                <span>Optimal Safe Assets</span>
+                <h2>{{ fresh_count }}</h2>
+                <p>Stable items with secure expiration lifespans.</p>
+            </div>
+
+            <div class="metric-card" style="--card-accent: var(--warning);">
+                <span>Expiring Soon (Warning)</span>
+                <h2>{{ warning_count }}</h2>
+                <p>Items entering critical 3-day consumption window.</p>
+            </div>
+
+            <div class="metric-card" style="--card-accent: var(--danger);">
+                <span>Expired / Waste Hazards</span>
+                <h2>{{ expired_count }}</h2>
+                <p>Compromised assets requiring immediate purging.</p>
+            </div>
+        </section>
+
+        <div class="audit-panel">
+            <div class="panel-title">📊 Database Viability Distribution Breakdown</div>
+            
+            <div class="progress-container">
+                <div class="progress-label-row">
+                    <span style="color: var(--success);">Fresh & Viable Inventory</span>
+                    <span>{{ fresh_count }} / {{ total }} Items</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {% if total > 0 %}{% widthratio fresh_count total 100 %}{% else %}0{% endif %}%; background: var(--success);"></div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label-row">
+                    <span style="color: var(--warning);">Expiring Soon Threshold</span>
+                    <span>{{ warning_count }} / {{ total }} Items</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {% if total > 0 %}{% widthratio warning_count total 100 %}{% else %}0{% endif %}%; background: var(--warning);"></div>
+                </div>
+            </div>
+
+            <div class="progress-container" style="margin-bottom: 0;">
+                <div class="progress-label-row">
+                    <span style="color: var(--danger);">Expired Risk Leakage</span>
+                    <span>{{ expired_count }} / {{ total }} Items</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {% if total > 0 %}{% widthratio expired_count total 100 %}{% else %}0{% endif %}%; background: var(--danger);"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="audit-panel">
+            <div class="panel-title">💡 System Telemetry Recommendations</div>
+            <div class="recs-grid">
+                <div class="rec-box">
+                    <h4>⚡ First-In, First-Out (FIFO) Protocol</h4>
+                    <p>Prioritize consumption or deployment of assets flagged under the 3-day warning threshold to minimize NPR financial waste leakage.</p>
+                </div>
+                <div class="rec-box">
+                    <h4>🧹 Automated Hazard Purging</h4>
+                    <p>Immediately remove items marked as expired from the SQLite database using the command center action interface to preserve inventory accuracy.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
