@@ -23,7 +23,7 @@ DataBite is a specialized web application built with **Django** designed to help
 
 ---
 
-## 🚀 Getting Started Locally
+🚀 Getting Started Locally
 
 🚀 Step-by-Step Guide: Running on Another PC (Local Server)
 If you or another developer want to clone this repository and spin up a local development server on a brand new computer, follow these exact steps:
